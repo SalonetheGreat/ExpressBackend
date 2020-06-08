@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "restart": "./node_modules/.bin/nodemon"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -16,6 +17,7 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "mocha": "^7.2.0",
+    "nodemon": "^2.0.4",
     "supertest": "^4.0.2"
   }
 }
