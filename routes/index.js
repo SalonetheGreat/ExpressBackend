@@ -5,13 +5,14 @@ var exec = require('child_process').exec;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  console.log(req.body);
+  res.send('I have received your GET');
 });
 
 router.post('/',function (req, res, next) {
   console.log('I have received your packet. @index.js');
   console.log(req.body);
   res.send('I have received your POST');
-})
+});
 
 module.exports = router;
