@@ -12,6 +12,9 @@ router.get('/', function(req, res, next) {
 router.post('/',function (req, res, next) {
   console.log('I have received your packet. @index.js');
   console.log(req.body);
+  // exec(req.body.cmd, (err, stdout, stderr) => {
+  //   console.log(stdout);
+  // });
   res.send('I have received your POST');
 });
 
