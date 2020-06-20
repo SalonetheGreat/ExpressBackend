@@ -15,7 +15,7 @@ router.post('/',function (req, res, next) {
   // exec('req.body.cmd', (err, stdout, stderr) => {
   //   console.log(stdout);
   // });
-  res.json('I have received your POST@index.js:' + req.body);
+  res.send('I have received your POST@index.js:' + req.body);
 });
 
 module.exports = router;
