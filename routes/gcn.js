@@ -3,13 +3,17 @@ var router = express.Router();
 
 var exec = require('child_process').exec;
 var fs = require('fs');
+var path = require('path');
 
 /* Functions */
 function construct_gcn_run (dataset) {
-    return `/home/public/gcn/gcn \
-        --feature_file=/home/public/gcn/dataset/gcn/${dataset}.svmlight \
-        --graph_file=/home/public/gcn/dataset/gcn/${dataset}.graph \
-        --split_file=/home/public/gcn/dataset/gcn/${dataset}.split`;
+    var gcn_path = path.join(__dirname, '..', 'gcn');
+    console.log(gcn_path);
+    console.log(path.join(gcn_path, 'dataset', 'gcn', dataset));
+    return `${path.join(gcn_path, 'gcn')} \ 
+        --feature_file=${path.join(gcn_path, 'dataset', 'gcn', dataset)}.svmlight \
+        --graph_file=${path.join(gcn_path, 'dataset', 'gcn', dataset)}.graph \
+        --split_file=${path.join(gcn_path, 'dataset', 'gcn', dataset)}.split`;
 }
 
 /* GET gcn page. */
