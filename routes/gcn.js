@@ -6,6 +6,7 @@ var fs = require('fs');
 var gcn_list = require('../gcn/gcn_list');
 const { isValidJSON } = require('../gcn/gcn_list');
 const { construct_gcn_run } = require('../gcn/gcn_list');
+const { execSync } = require('child_process');
 
 /* GET gcn page. */
 router.get('/', function (req, res, next) {
@@ -24,11 +25,8 @@ router.post('/',function (req, res, next) {
     var gcn_run = construct_gcn_run(req.body.dataset);
     console.log('GCN COMMAND: ' + gcn_run);
 
-    exec(gcn_run, (err, stdout, stderr) => {
-        fs.writeFile('./gcn/output.txt', stdout, (err) => {
-            if (err) return console.log(err);
-        });
-    });
+    var result = execSync(gcn_run).toString();
+    console.log(result);
     res.send('I have received your packet successfully.@gcn.js');
 });
 
