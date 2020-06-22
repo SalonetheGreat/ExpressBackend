@@ -5,7 +5,7 @@ var exec = require('child_process').exec;
 var fs = require('fs');
 var gcn_list = require('../gcn/gcn_list');
 const { isValidJSON } = require('../gcn/gcn_list');
-const { construct_gcn_run } = require('../gcn/gcn_list');
+const { construct_gcn_cmd } = require('../gcn/gcn_list');
 
 /* GET gcn page. */
 router.get('/', function (req, res, next) {
@@ -21,10 +21,10 @@ router.post('/',function (req, res, next) {
     }
 
     // if ok, then construct gcn commands
-    var gcn_run = construct_gcn_run(req.body.dataset);
-    console.log('GCN COMMAND: ' + gcn_run);
+    var gcn_cmd = construct_gcn_cmd(req.body.dataset);
+    console.log('GCN COMMAND: ' + gcn_cmd);
 
-    exec(gcn_run, (err, stdout, stderr) => {
+    exec(gcn_cmd, (err, stdout, stderr) => {
         fs.writeFile('./gcn/output.txt', stdout, (err) => {
             if (err) return console.log(err);
         });
