@@ -1,9 +1,10 @@
 var supertest = require('supertest');
 var app = require('../app');
 
-// describe('homepage', function () {
+// describe('HOMEPAGE', function () {
 //     it('Testcase for GET \'/\'', function (done) {
 //         supertest(app).get('/')
+//             .expect('I have received your GET@index.js')
 //             .expect(200, done);
 //     })
 
@@ -18,13 +19,24 @@ var app = require('../app');
 //     })
 // })
 
-describe('gcn_page', function () {
+describe('GCN_PAGE', function () {
     it('citeseer JSON', function (done) {
         this.timeout(0);
         supertest(app).post('/gcn')
             .send({
                 "dataset": "citeseer"
             })
+            .expect('Content-Type', /json/)
+            .expect(200, done);
+    })
+
+    it('not valid JSON', function (done) {
+        this.timeout(0);
+        supertest(app).post('/gcn')
+            .send({
+                "name": "shalong"
+            })
+            .expect('Content-Type', /json/)
             .expect(200, done);
     })
 })

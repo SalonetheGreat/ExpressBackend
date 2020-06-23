@@ -23,7 +23,6 @@ router.post('/',function (req, res, next) {
 
     var result = execSync(gcn_run).toString();
     var reply = res_to_json(result);
-    console.log(reply);
     res.json(reply);
 });
 
