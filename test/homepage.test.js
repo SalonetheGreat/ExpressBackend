@@ -19,27 +19,12 @@ var app = require('../app');
 // })
 
 describe('gcn_page', function () {
-    it('should output the command to be executed', function (done) {
+    it('citeseer JSON', function (done) {
+        this.timeout(0);
         supertest(app).post('/gcn')
             .send({
                 "dataset": "citeseer"
             })
             .expect(200, done);
     })
-
-    it('JSON without dataset', function (done) {
-        supertest(app).post('/gcn')
-            .send({
-                "name": 'Salone',
-                "age": 20
-            })
-            .expect(200, done);
-    })
-
-    it('NO JSON', function (done) {
-        supertest(app).post('/gcn')
-            .send('hello world')
-            .expect(200, done);
-    })
-
 })
