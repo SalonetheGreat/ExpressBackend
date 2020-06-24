@@ -19,10 +19,11 @@ router.post('/',function (req, res, next) {
     }
 
     // if ok, then construct gcn commands
-    var gcn_run = construct_gcn_run(req.body.dataset);
-
+    var gcn_run = construct_gcn_run(req.body);
+    // console.log(gcn_run);
     var result = execSync(gcn_run).toString();
     var reply = res_to_json(result);
+    // console.log(reply);
     res.json(reply);
 });
 

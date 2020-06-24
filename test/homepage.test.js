@@ -24,19 +24,20 @@ describe('GCN_PAGE', function () {
         this.timeout(0);
         supertest(app).post('/gcn')
             .send({
-                "dataset": "citeseer"
+                "dataset": "citeseer",
+                "max_iter": 20
             })
             .expect('Content-Type', /json/)
             .expect(200, done);
     })
 
-    it('not valid JSON', function (done) {
-        this.timeout(0);
-        supertest(app).post('/gcn')
-            .send({
-                "name": "shalong"
-            })
-            .expect('Content-Type', /json/)
-            .expect(200, done);
-    })
+    // it('not valid JSON', function (done) {
+    //     this.timeout(0);
+    //     supertest(app).post('/gcn')
+    //         .send({
+    //             "name": "shalong"
+    //         })
+    //         .expect('Content-Type', /json/)
+    //         .expect(200, done);
+    // })
 })

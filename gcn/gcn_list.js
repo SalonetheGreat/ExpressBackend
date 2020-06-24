@@ -1,6 +1,19 @@
 module.exports = {
-    construct_gcn_run: (dataset) => {
-        return `./gcn/gcn --feature_file=./gcn/dataset/gcn/${dataset}.svmlight --graph_file=./gcn/dataset/gcn/${dataset}.graph --split_file=./gcn/dataset/gcn/${dataset}.split`
+    // construct_gcn_run: (dataset) => {
+    //     return `./gcn/gcn --feature_file=./gcn/dataset/gcn/${dataset}.svmlight --graph_file=./gcn/dataset/gcn/${dataset}.graph --split_file=./gcn/dataset/gcn/${dataset}.split`;
+    // },
+    construct_gcn_run: (body) => {
+        var command = './gcn/gcn'
+        for (var key of Object.keys(body)) {
+            var argv;
+            if (key == 'dataset') {
+                argv = `--feature_file=./gcn/dataset/gcn/${body.dataset}.svmlight --graph_file=./gcn/dataset/gcn/${body.dataset}.graph --split_file=./gcn/dataset/gcn/${body.dataset}.split`
+            } else {
+                argv = `--${key}=${body[key]}`
+            }
+            command += ' ' + argv;
+        }
+        return command;
     },
 
     isValidJSON: (body) => {
@@ -12,7 +25,7 @@ module.exports = {
         } catch (error) {
             return false;
         }
-    }, 
+    },
 
     res_to_json: (result) => {
         var reply = {};
