@@ -1,3 +1,9 @@
+body_arguments = [
+    'dataset', 
+    'graph-type',
+    'max_iter'
+];
+
 module.exports = {
     // construct_gcn_run: (dataset) => {
     //     return `./gcn/gcn --feature_file=./gcn/dataset/gcn/${dataset}.svmlight --graph_file=./gcn/dataset/gcn/${dataset}.graph --split_file=./gcn/dataset/gcn/${dataset}.split`;
@@ -6,10 +12,13 @@ module.exports = {
         var command = './gcn/gcn'
         for (var key of Object.keys(body)) {
             var argv;
-            if (key == 'dataset') {
-                argv = `--feature_file=./gcn/dataset/gcn/${body.dataset}.svmlight --graph_file=./gcn/dataset/gcn/${body.dataset}.graph --split_file=./gcn/dataset/gcn/${body.dataset}.split`
-            } else {
-                argv = `--${key}=${body[key]}`
+            switch (key) {
+                case 'dataset':
+                    argv = `--feature_file=./gcn/dataset/gcn/${body.dataset}.svmlight --graph_file=./gcn/dataset/gcn/${body.dataset}.graph --split_file=./gcn/dataset/gcn/${body.dataset}.split`
+                    break;
+                default:
+                    argv = `--${key}=${body[key]}`
+                    break;
             }
             command += ' ' + argv;
         }
@@ -18,10 +27,11 @@ module.exports = {
 
     isValidJSON: (body) => {
         try {
-            if (body.dataset != null) {
-                return true;
+            for (var key of Object.keys(body)) {
+                if (!body_arguments.includes(key))
+                    return false;
             }
-            return false;
+            return true;
         } catch (error) {
             return false;
         }
