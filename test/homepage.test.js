@@ -20,24 +20,22 @@ var app = require('../app');
 // })
 
 describe('GCN_PAGE', function () {
-    it('citeseer JSON', function (done) {
+   //  it('citeseer JSON', function (done) {
+   //      this.timeout(0);
+   //      supertest(app).post('/gcn')
+   //          .send({
+   //              "dataset": "citeseer"
+   //          })
+   //          .expect('Content-Type', /json/)
+   //          .expect(200, done);
+   //  })
+
+    it('Ee Ter JSON', function (done) {
+        let data = require('./eeter.test.json');
         this.timeout(0);
         supertest(app).post('/gcn')
-            .send({
-                "dataset": "citeseer",
-                "max_iter": 20
-            })
+            .send(data)
             .expect('Content-Type', /json/)
             .expect(200, done);
     })
-
-    // it('not valid JSON', function (done) {
-    //     this.timeout(0);
-    //     supertest(app).post('/gcn')
-    //         .send({
-    //             "name": "shalong"
-    //         })
-    //         .expect('Content-Type', /json/)
-    //         .expect(200, done);
-    // })
 })

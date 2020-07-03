@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
 
-const { isValidJSON, res_to_json } = require('../gcn/gcn_list');
+const { res_to_json } = require('../gcn/gcn_list');
 const { construct_gcn_run } = require('../gcn/gcn_list');
 const { execSync } = require('child_process');
+const fs = require('fs');
 
 /* GET gcn page. */
 router.get('/', function (req, res, next) {
@@ -12,18 +13,14 @@ router.get('/', function (req, res, next) {
 
 /* POST to gcn page */
 router.post('/',function (req, res, next) {
-    // check if JSON is valid
-    if (!isValidJSON(req.body)) {
-        res.send('please send a valid json!');
-        return;
-    }
-
-    // if ok, then construct gcn commands
+    // write input json to front_end.json
+    fs.writeFileSync('./gcn/front_end.json', JSON.stringify(req.body, null, 4))
+    // construct gcn command to be run 
     var gcn_run = construct_gcn_run(req.body);
-    // console.log(gcn_run);
-    var result = execSync(gcn_run).toString();
-    var reply = res_to_json(result);
-    // console.log(reply);
+    // return the execution stdout as a string
+    var res_str = execSync(gcn_run).toString();
+    // parse the result string to a json 
+    var reply = res_to_json(res_str);
     res.json(reply);
 });
 
