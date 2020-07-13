@@ -17,7 +17,8 @@ router.post('/',function (req, res, next) {
     fs.writeFileSync('./gcn/front_end.json', JSON.stringify(req.body, null, 4))
     // construct gcn command to be run 
     var gcn_run = construct_gcn_run(req.body);
-    var res_str, reply
+    console.log(gcn_run)
+    var res_str, reply;
     try {
         // return the execution stdout as a string
         res_str = execSync(gcn_run).toString();

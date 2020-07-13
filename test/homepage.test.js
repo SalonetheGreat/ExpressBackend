@@ -20,24 +20,24 @@ var app = require('../app');
 // })
 
 describe('GCN_PAGE', function () {
-   //  it('citeseer JSON', function (done) {
-   //      this.timeout(0);
-   //      supertest(app).post('/gcn')
-   //          .send({
-   //              "dataset": "citeseer"
-   //          })
-   //          .expect('Content-Type', /json/)
-   //          .expect(200, done);
-   //  })
-
-    it('Ee Ter JSON', function (done) {
-        let data = require('./eeter.test.json');
-        let ans = require('./eeter.ans.test.json');
+    it('without JSON', function (done) {
         this.timeout(0);
         supertest(app).post('/gcn')
-            .send(data)
+            .send({
+                "dataset": "mexico"
+            })
             .expect('Content-Type', /json/)
-            .expect(/avg_train_time/).expect(/data_slice.fw_loss average time/).expect(/epoch/)
             .expect(200, done);
     })
+
+    // it('Ee Ter JSON', function (done) {
+    //     let data = require('./eeter.test.json');
+    //     let ans = require('./eeter.ans.test.json');
+    //     this.timeout(0);
+    //     supertest(app).post('/gcn')
+    //         .send(data)
+    //         .expect('Content-Type', /json/)
+    //         .expect(/avg_train_time/).expect(/data_slice.fw_loss average time/).expect(/epoch/)
+    //         .expect(200, done);
+    // })
 })
